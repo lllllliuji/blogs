@@ -76,31 +76,31 @@ module.exports = {
                 zIndex: 999999999, // z-index property of the canvas, default: 999999999
             },
         ],
-        // [
-        //     "@vuepress-reco/vuepress-plugin-bgm-player",
-        //     {
-        //         audios: [
-        //             {
-        //                 name: "我中意",
-        //                 artist: "魔动闪霸 / 炎明熹",
-        //                 url: "/我中意.mp3",
-        //                 // cover: "https://assets.smallsunnyfox.com/music/3.jpg",
-        //             },
-        //             // {
-        //             //     name: "팔베개",
-        //             //     artist: "최낙타",
-        //             //     url: "https://assets.smallsunnyfox.com/music/3.mp3",
-        //             //     cover:
-        //             //         "https://p1.music.126.net/qTSIZ27qiFvRoKj-P30BiA==/109951165895951287.jpg?param=200y200",
-        //             // },
-        //         ],
-        //         // 是否默认缩小
-        //         autoShrink: true,
-        //         // 缩小时缩为哪种模式
-        //         shrinkMode: "float",
-        //         // 悬浮窗样式
-        //         floatStyle: { bottom: "20px", "z-index": "999999" },
-        //     },
-        // ],
+        [
+            "@vuepress-reco/vuepress-plugin-bgm-player",
+            {
+                audios: [
+                    {
+                        name: "我中意",
+                        artist: "魔动闪霸 / 炎明熹",
+                        url: "/我中意.mp3",
+                        // cover: "https://assets.smallsunnyfox.com/music/3.jpg",
+                    },
+                    // {
+                    //     name: "팔베개",
+                    //     artist: "최낙타",
+                    //     url: "https://assets.smallsunnyfox.com/music/3.mp3",
+                    //     cover:
+                    //         "https://p1.music.126.net/qTSIZ27qiFvRoKj-P30BiA==/109951165895951287.jpg?param=200y200",
+                    // },
+                ],
+                // 是否默认缩小
+                autoShrink: true,
+                // 缩小时缩为哪种模式
+                shrinkMode: "float",
+                // 悬浮窗样式
+                floatStyle: { bottom: "20px", "z-index": "999999" },
+            },
+        ],
     ],
 }
