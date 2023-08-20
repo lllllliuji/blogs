@@ -20,7 +20,7 @@ jobs:
 
       # 1、生成静态文件
       - name: Build
-        run: npm run docs:dev
+        run: npm install -D vuepress && npm run docs:dev
 
       # 2、部署到 GitHub Pages
       - name: Deploy
