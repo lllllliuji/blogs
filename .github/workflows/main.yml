@@ -20,7 +20,7 @@ jobs:
 
       # 1、生成静态文件
       - name: Build
-        run: npm install -D vuepress && npm install --global yarn && npm yarn docs:build
+        run: npm install npm@8.1.2 -g && npm install -D vuepress && npm run docs:build
 
       # 2、部署到 GitHub Pages
       - name: Deploy
