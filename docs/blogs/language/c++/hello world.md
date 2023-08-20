@@ -5,7 +5,6 @@ categories:
   - language
 tags:
   - c++
-sticky: 1
 ---
 ```c++
 #include <iostream>
