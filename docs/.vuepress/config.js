@@ -11,7 +11,7 @@ module.exports = {
     themeConfig: {
         author: "kisschang",
         subSidebar: "True",
-        logo: "/background.jpg",
+        logo: "/shayulajiao.jpg",
         authorAvatar: "/shayulajiao.jpg",
         type: "blog",
         nav: [
