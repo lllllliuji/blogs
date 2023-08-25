@@ -11,26 +11,26 @@ module.exports = {
     themeConfig: {
         author: "kisschang",
         subSidebar: "True",
-        logo: "/raft.png",
-        authorAvatar: "/raft.png",
+        logo: "/background.jpg",
+        authorAvatar: "/shayulajiao.jpg",
         type: "blog",
         nav: [
             {
-                text: "首页",
+                text: "Home",
                 link: "/"
             },
             {
-                text: "other",
+                text: "Other",
                 items: [
-                    { text: "力扣", link: "https://leetcode.cn/u/lllllliuji-2/" },
-                    { text: "B站", link: "https://space.bilibili.com/474291372" }
+                    { text: "leetcode", link: "https://leetcode.cn/u/lllllliuji-2/" },
+                    { text: "bilibili", link: "https://space.bilibili.com/474291372" }
                 ]
             }
         ],
         blogConfig: {
             category: {
                 location: 2, // 在导航栏菜单中所占的位置，默认2
-                text: "目录", // 默认文案 “分类”
+                text: "Content", // 默认文案 “分类”
             },
             tag: {
                 location: 4, // 在导航栏菜单中所占的位置，默认4

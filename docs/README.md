@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: "/raft.png"
+heroImage: "/shayulajiao.jpg"
 heroText: kisschang
 heroImageStyle:
   {
