@@ -2,7 +2,7 @@
 title: spanner
 date: 2023-08-20
 categories:
-  - distributed database
+  - distributed system
 tags:
   - database
   - distributed system
