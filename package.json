@@ -16,5 +16,8 @@
     "vuepress-plugin-cursor-effects": "^1.1.6",
     "vuepress-plugin-sakura": "^1.2.1",
     "vuepress-theme-reco": "^1.6.17"
+  },
+  "dependencies": {
+    "markdown-it-katex": "^2.0.3"
   }
 }

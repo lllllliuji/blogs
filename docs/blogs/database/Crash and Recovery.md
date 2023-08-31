@@ -3,7 +3,6 @@ title: Crash and Recovery
 date: 2023-05-20
 categories:
   - database
-  - crash and recovery
 tags:
   - database
   - crash and recovery
