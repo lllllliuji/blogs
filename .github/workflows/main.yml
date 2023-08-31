@@ -20,7 +20,7 @@ jobs:
 
       # 1、生成静态文件
       - name: Build
-        run: export NODE_OPTIONS=--openssl-legacy-provider && npm install -D vuepress && npm run docs:build
+        run: npm install markdown-it-katex --save && export NODE_OPTIONS=--openssl-legacy-provider && npm install -D vuepress && npm run docs:build
 
       # 2、部署到 GitHub Pages
       - name: Deploy
