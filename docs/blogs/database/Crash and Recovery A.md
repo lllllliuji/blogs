@@ -7,7 +7,7 @@ tags:
   - database
   - crash and recovery
   - cmu 15-445
-sticky: 1
+# sticky: 1
 ---
 # Crash and Recovery in Database
 ## 1. Prerequisites

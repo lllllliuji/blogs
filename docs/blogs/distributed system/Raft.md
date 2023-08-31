@@ -9,7 +9,7 @@ tags:
   - distributed system
   - consensus algorithm
   - 6.824
-sticky: 1
+# sticky: 1
 ---
 # Raft
 ## 1. Raft简介

@@ -6,5 +6,5 @@ categories:
 tags:
   - database
   - distributed system
-sticky: 1
+# sticky: 1
 ---
