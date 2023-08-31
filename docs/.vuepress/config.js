@@ -8,6 +8,9 @@ module.exports = {
             lang: "zh-CN",
         },
     },
+    markdown: {
+        lineNumbers: true
+    },
     extendMarkdown(md) {
         md.set({ html: true });
         md.use(require("markdown-it-katex"));
