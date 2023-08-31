@@ -1,5 +1,5 @@
 ---
-title: Crash and Recovery
+title: Crash and Recovery part A 
 date: 2023-05-20
 categories:
   - database
@@ -7,7 +7,6 @@ tags:
   - database
   - crash and recovery
   - cmu 15-445
-  - ARIES
 sticky: 1
 ---
 # Crash and Recovery in Database
