@@ -1,5 +1,5 @@
 ---
-title: Raft
+title: Crash and Recovery
 date: 2023-05-20
 categories:
   - database
@@ -150,6 +150,8 @@ After the undo phase of recovery terminates, normal transaction processing can r
 * requires that all updates to the database be temporarily suspended while the checkpoint is in progress.
 * the DBMS must stall txns when it takes a checkpoint to ensure a consistent snapshot.
 * Scanning the log to find uncommitted txns can take a long time.
+
+
 
 
 
