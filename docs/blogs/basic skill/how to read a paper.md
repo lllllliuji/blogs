@@ -93,3 +93,34 @@ be able to pinpoint implicit assumptions, missing citations
 to relevant work, and potential issues with experimental or
 analytical techniques.
 
+# 3. DOING A LITERATURE SURVEY
+Paper reading skills are put to the test in doing a literature
+survey. This will require you to read tens of papers, perhaps
+in an unfamiliar field. What papers should you read? Here
+is how you can use the three-pass approach to help.
+
+
+First, use an academic search engine such as Google Scholar
+or CiteSeer and some well-chosen keywords to find three to
+five recent papers in the area. Do one pass on each paper to get a sense of the work, then read their related work
+sections. You will find a thumbnail summary of the recent
+work, and perhaps, if you are lucky, a pointer to a recent
+survey paper. If you can find such a survey, you are done.
+Read the survey, congratulating yourself on your good luck.
+
+
+Otherwise, in the second step, find shared citations and
+repeated author names in the bibliography. These are the
+key papers and researchers in that area. Download the key
+papers and set them aside. Then go to the websites of the
+key researchers and see where they’ve published recently.
+That will help you identify the top conferences in that field
+because the best researchers usually publish in the top conferences.
+
+
+The third step is to go to the website for these top conferences and look through their recent proceedings. A quick
+scan will usually identify recent high-quality related work.
+These papers, along with the ones you set aside earlier, constitute the first version of your survey. Make two passes
+through these papers. If they all cite a key paper that you
+did not find earlier, obtain and read it, iterating as necessary.
+
