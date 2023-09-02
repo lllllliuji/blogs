@@ -1,4 +1,5 @@
 ---
+title: How to read a paper
 date: 2023-05-20
 categories:
   - basic skill
