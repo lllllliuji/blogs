@@ -34,7 +34,7 @@ module.exports = {
                 text: "Other",
                 items: [
                     { text: "github", link: "https://github.com/lllllliuji" },
-                    { text: "leetcode", link: "https://leetcode.cn/u/lllllliuji-2/" },
+                    // { text: "leetcode", link: "https://leetcode.cn/u/lllllliuji-2/" },
                     { text: "bilibili", link: "https://space.bilibili.com/474291372" }
                 ]
             }
