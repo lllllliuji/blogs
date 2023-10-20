@@ -2,9 +2,10 @@
 title: Google File System
 date: 2023-05-20
 categories:
-  - storage system
+  - file system
 tags:
-  - storage system
+  - file system
   - 6.824
 ---
+
 
