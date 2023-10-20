@@ -2,9 +2,10 @@
 title: MapReduce
 date: 2023-05-20
 categories:
-  - distributed computing
+  - distributed system
+  - distributed computation
 tags:
-  - distributed computing
+  - distributed computation
   - 6.824
 ---
 creating an index of all of the content
