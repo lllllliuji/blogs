@@ -3,7 +3,6 @@ title: MapReduce
 date: 2023-05-20
 categories:
   - distributed system
-  - distributed computation
 tags:
   - distributed computation
   - 6.824
