@@ -1,6 +1,6 @@
 module.exports = {
     title: "kisschang's blog",
-    description: "Keep your mind sharp",
+    description: "Keep your mind sharp!",
     theme: "reco",
     base: "/blogs/",
     locales: {
