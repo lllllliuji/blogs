@@ -40,7 +40,10 @@ client may divide a single read that cross two of more chunk into independent re
 
 Write(append)
 no primary exist ? 
-find up-to-date replicas
+find a up-to-date replicas which chunk version equals master knowed latest version, otherwise reply wrong, try later
+pick the primary
+master increment version number, write to disk, send to primary and secondary
+
 
 
 
@@ -65,3 +68,192 @@ this access pattern on huge files, appending becomes the focus of performance op
 while caching data blocks in the client loses its appeal.
 4. co-designing the applications and the file system API benefits the overall system by increasing our flexibility.
 
+# Design Overview
+## 1. Assumption
+1. • The system is built from many inexpensive commodity
+components that often fail. It must constantly monitor
+itself and detect, tolerate, and recover promptly from
+component failures on a routine basis.
+2. The system stores a modest number of large files.
+3. The workloads primarily consist of two kinds of reads:
+large streaming reads and small random reads.Performance-conscious applications often batch
+and sort their small reads to advance steadily through
+the file rather than go back and forth.
+4. The workloads also have many large, sequential writes
+that append data to files. Once written, files are seldom modified again. Small writes at arbitrary positions in a file are supported but do not have to be
+efficient.
+5. The system must efficiently implement well-defined semantics for multiple clients that concurrently append
+to the same file.
+6. High sustained bandwidth is more important than low
+latency.
+
+## 2. Architecture
+A GFS cluster consists of a single master and multiple
+chunkservers and is accessed by multiple clients, as shown
+in Figure 1.
+![figure 1](./../../.vuepress/public/gfs/figure1.jpg#pic_center)
+1. Files are divided into fixed-size chunks. Each chunk is
+identified by an immutable and globally unique 64 bit chunk
+handle assigned by the master at the time of chunk creation.
+2. Chunkservers store chunks on local disks as Linux files and
+read or write chunk data specified by a chunk handle and
+byte range. 
+3. For reliability, each chunk is replicated on multiple chunkservers. By default, we store three replicas, though
+users can designate different replication levels for different
+regions of the file namespace.
+
+**Master**
+
+1. The master maintains all file system metadata. This includes the namespace, access control information, the mapping from files to chunks, and the current locations of chunks.
+2. It also controls system-wide activities such as chunk lease
+management, garbage collection of orphaned chunks, and
+chunk migration between chunkservers. 
+3. The master periodically communicates with each chunkserver in HeartBeat
+messages to give it instructions and collect its state.
+
+**Client**
+1. GFS client code linked into each application implements
+the file system API and communicates with the master and
+chunkservers to read or write data on behalf of the application.
+2. Clients interact with the master for metadata operations, but all data-bearing communication goes directly to
+the chunkservers. Clients never read
+and write file data through the master. 
+
+3. Instead, a client asks
+the master which chunkservers it should contact. It caches
+this information for a limited time and interacts with the
+chunkservers directly for many subsequent operations.
+
+4. Further reads
+of the same chunk require no more client-master interaction
+until the cached information expires or the file is reopened. In fact, the client typically asks for multiple chunks in the
+same request and the master can also include the information for chunks immediately following those requested.
+5. Neither the client nor the chunkserver caches file data.
+Client caches offer little benefit because most applications
+stream through huge files or have working sets too large
+to be cached. 
+6. Not having them simplifies the client and
+the overall system by eliminating cache coherence issues.
+(***Clients do cache metadata, however.***)
+7. Chunkservers need
+not cache file data because chunks are stored as local files
+and so Linux’s buffer cache already keeps frequently accessed
+data in memory.
+
+*Chunk size 64MB*
+1. Each chunk replica is stored as a plain
+Linux file on a chunkserver and is extended only as needed.
+2. Lazy space allocation avoids wasting space due to internal
+fragmentation, perhaps the greatest objection against such a large chunk size.
+
+*advantage of large chunk size*
+ 1. it reduces clients’ need to interact with the master
+because reads and writes on the same chunk require only
+one initial request to the master for chunk location information.
+2. since on a large chunk, a
+client is more likely to perform many operations on a given
+chunk, it can reduce network overhead by keeping a persistent TCP connection to the chunkserver over an extended
+period of time. 
+3.  it reduces the size of the metadata
+stored on the master.
+
+*disadvantage of large chunk size*
+1. A small file consists of a
+small number of chunks, perhaps just one. The chunkservers
+storing those chunks may become hot spots if many clients
+are accessing the same file. 
+2. fixed this problem by storing such executables
+with a higher replication factor and by making the batchqueue system stagger application start times.
+3. A potential
+long-term solution is to allow clients to read data from other
+clients in such situations.
+
+**Metadata**
+
+The master stores three major types of metadata: 
+1. the file and chunk namespaces. (non-volatile)
+2. the mapping from files to chunks. (non-volatile)
+3. the locations of each chunk’s replicas. (volatile)
+
+The first two types (namespaces and file-to-chunk mapping) are also kept persistent by
+logging mutations to an operation log stored on the master’s local disk and replicated on remote machines.
+
+The master does not store chunk location information persistently. Instead, it asks each chunkserver about its
+chunks at master startup and whenever a chunkserver joins
+the cluster.
+
+*In-Memory Data Structures*  
+1. metadata is stored in memory, master operations are
+fast. 
+2. it is easy and efficient for the master to
+periodically scan through its entire state in the background.
+This periodic scanning is used to implement chunk garbage
+collection, re-replication in the presence of chunkserver failures, and chunk migration to balance load and disk space
+usage across chunkservers.
+
+The master maintains less than 64 bytes of metadata for each 64 MB
+chunk. Most chunks are full because most files contain many
+chunks, only the last of which may be partially filled. Similarly, the file namespace data typically requires less then
+64 bytes per file because it stores file names compactly using prefix compression.
+
+If necessary to support even larger file systems, the cost
+of adding extra memory to the master is a small price to pay
+for the simplicity, reliability, performance, and flexibility we gain by storing the metadata in memory.
+
+*Chunk Locations*  
+1. The master does not keep a persistent record of which
+chunkservers have a replica of a given chunk. 
+2. It simply polls
+chunkservers for that information at startup. The master
+can keep itself up-to-date thereafter because it controls all
+chunk placement and monitors chunkserver status with regular HeartBeat messages. 
+3. a chunkserver has the final word over what chunks
+it does or does not have on its own disks.
+
+
+**Operation Log**  
+1. The operation log contains a historical record of critical
+metadata changes. 
+2. Not only is it the
+only persistent record of metadata, but it also serves as a
+logical time line that defines the order of concurrent operations.
+3. Files and chunks, as well as their versions, are all uniquely and eternally identified by the
+logical times at which they were created.
+
+*Storage*
+1. Since the operation log is critical, we must store it reliably and not make changes visible to clients until metadata
+changes are made persistent.
+2. we replicate it on
+multiple remote machines and respond to a client operation only after flushing the corresponding log record to disk
+both locally and remotely
+3. The master batches several log
+records together before flushing thereby reducing the impact
+of flushing and replication on overall system throughput.
+
+*Recovery*
+1. The master recovers its file system state by replaying the
+operation log. 
+2. The master checkpoints its state whenever the log
+grows beyond a certain size so that it can recover by loading
+the latest checkpoint from local disk and replaying only the limited number of log records after that.
+3. Recovery needs only the latest complete checkpoint and
+subsequent log files. Older checkpoints and log files can
+be freely deleted, though we keep a few around to guard
+against catastrophes.
+4. A failure during checkpointing does
+not affect correctness because the recovery code detects and
+skips incomplete checkpoints.
+
+
+**Consistency Model**
+GFS has a relaxed consistency model.
+
+*Guarantees By GFS*
+1. File namespace mutations are atomic.They are handled exclusively by the master: namespace
+locking guarantees atomicity and correctness;
+the master’s operation log defines a global total order of
+these operations.
+2. The state of a file region after a data mutation depends
+on the type of mutation, whether it succeeds or fails, and
+whether there are concurrent mutations.  
+![](../../.vuepress/public/gfs/figure2.jpg#pic_center)
