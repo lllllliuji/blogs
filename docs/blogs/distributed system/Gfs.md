@@ -245,7 +245,7 @@ not affect correctness because the recovery code detects and
 skips incomplete checkpoints.
 
 
-**Consistency Model**
+**Consistency Model**  
 GFS has a relaxed consistency model.
 
 *Guarantees By GFS*
@@ -257,3 +257,77 @@ these operations.
 on the type of mutation, whether it succeeds or fails, and
 whether there are concurrent mutations.  
 ![](../../.vuepress/public/gfs/figure2.jpg#pic_center)
+   1. consistant  
+    A file region is consistent if all clients will
+always see the same data, regardless of which replicas they
+read from. 
+   2.  defined  
+    A region is defined after a file data mutation if it
+is consistent and clients will see what the mutation writes in its entirety.  
+sequence successful mutations: defined  
+concurrent successful mutations: consistant  
+failed mutation: unconsistant  
+The applications do not need to further distinguish
+between different kinds of undefined regions.
+
+Data mutations may be writes or record appends.  
+1. A write
+causes data to be written at an application-specified file
+offset.
+2. A record append causes data (the “record”) to be
+appended atomically at least once even in the presence of
+concurrent mutations, but at an offset of GFS’s choosing. (In contrast, a “regular” append is merely a
+write at an offset that the client believes to be the current
+end of file.) The offset is returned to the client and marks
+the beginning of a defined region that contains the record.In addition, GFS may insert padding or record duplicates in
+between. They occupy regions considered to be inconsistent
+and are typically dwarfed by the amount of user data.
+
+After a sequence of successful mutations, the mutated file
+region is guaranteed to be defined and contain the data written by the last mutation.  
+GFS achieves this by   
+(a) applying
+mutations to a chunk in the same order on all its replicas.  
+
+(b) using chunk version numbers to detect
+any replica that has become stale because it has missed mutations while its chunkserver was down.
+
+
+Since clients cache chunk locations, they may read from a
+stale replica before that information is refreshed. This window is limited by the cache entry’s timeout and the next
+open of the file, which purges from the cache all chunk information for that file. Moreover, as most of our files are append-only, a stale replica usually returns a premature
+end of chunk rather than outdated data. When a reader
+retries and contacts the master, it will immediately get current chunk locations.  
+
+
+ GFS identifies failed
+chunkservers by regular handshakes between master and all
+chunkservers and detects data corruption by checksumming.
+ Once a problem surfaces, the data is restored
+from valid replicas as soon as possible. A chunk
+is lost irreversibly only if all its replicas are lost before GFS can react, typically within minutes. Even in this case, it becomes unavailable, not corrupted: applications receive clear errors rather than corrupt data.
+
+*Implications for Applications*  
+GFS applications can accommodate the relaxed consistency model with a few simple techniques already needed for
+other purposes:  
+relying on appends rather than overwrites,
+checkpointing, and writing self-validating, self-identifying
+records.
+
+Readers deal with the occasional padding and duplicates as follows. Each record prepared by the writer contains extra information like checksums so that its validity can be verified. A reader can
+identify and discard extra padding and record fragments
+using the checksums. If it cannot tolerate the occasional
+duplicates, it can filter them out using unique identifiers in
+the records, which are often needed anyway to name corresponding application entities such as web documents. These
+functionalities for record I/O (except duplicate removal) are
+in library code shared by our applications and applicable to
+other file interface implementations at Google. With that,
+the same sequence of records, plus rare duplicates, is always
+delivered to the record reader.
+
+## System Interactions
+We designed the system to minimize the master’s involvement in all operations. With that background, we now describe how the client, master, and chunkservers interact to
+implement data mutations, atomic record append, and snapshot.
+
+**Leases and Mutation Order**
+
