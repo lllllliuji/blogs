@@ -10,7 +10,7 @@ tags:
 全局全序  
 每个客户端看到相同的顺序  
 as if one copy of data, and a linear sequence of operations applied to the data.
-
+```
 **example 1**  
 |===wx1===|   |===wx2===|  
        |===rx2===|  
@@ -40,7 +40,7 @@ not linera
 |===wx3===|     |===wx4===|  
             |==rx=======                         //request lost or reply lost or leader fail   
 重传会导致不同的线性一致性问题
-
+```
 Linearizability 
 1. exists one and only total order ops
 2. matches real time
