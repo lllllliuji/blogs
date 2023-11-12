@@ -3,8 +3,8 @@ title: Zookeeper
 date: 2023-11-10
 categories:
   - distributed system
-  - linearizability
 tags:
+  - linearizability
   - 6.824
 ---
 全局全序  
