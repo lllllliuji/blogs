@@ -1,5 +1,5 @@
 ---
-title: Bitcoin, A Peer-to-Peer Electronic Cash System
+title: Ethereum Whitepaper
 categories:
   - distributed system
 tags:
