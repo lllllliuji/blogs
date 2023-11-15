@@ -1,5 +1,5 @@
 ---
-title: MapReduce
+title: Distributed Transaction
 date: 2023-11-14
 categories:
   - distributed system

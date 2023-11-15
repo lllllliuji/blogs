@@ -1,5 +1,5 @@
 ---
-title: spanner
+title: Spanner
 date: 2023-08-20
 categories:
   - distributed system
