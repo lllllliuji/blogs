@@ -71,6 +71,7 @@ the problem here is that the local replica may be in the minority of the paxos f
 
 Spanner solve this by SAFE TIME.  
 Each replica remembers the very last log record it's gotten from its leader to know how up to dated, so if I ask for a value as of timestamp 15 but the replica has only gotten log entries from the paxos leader after a timestamp 13, the replicas gonna make us delay, it's not gonna answer until it's gotten a log record with timestamp 15 from the leader, and this ensures that replicas don't answer a request for a given timestamp until they're guaranteed to know everything from the leader up throught that timestamp.  
+对于最新的更新是15， read timestamp是20，猜测leader会给follower发送最大的update timestamp with 当前的TT interval, 如果最大的timestampe也小于read timestamp,则直接读数据。
 
 What if clocks aren't synced ?
 R/O transaction's timestamp is too large ? local replica force client wait until receiving log with timestamp higher from leader. correct but slow.    
