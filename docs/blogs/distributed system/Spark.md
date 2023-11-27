@@ -1,5 +1,6 @@
 ---
 title: Resilient Distributed Datasets, A Fault-Tolerant Abstraction for In-Memory Cluster Computing
+date: 2023-11-10
 categories:
   - distributed system
 tags:
