@@ -41,3 +41,11 @@ client send write to local datacenter, datacenter send write to a Log server, lo
 
 COPS  
 cascading dependency waits  
+```
+photo list  ACL(access control list)
+c1 get(ACL)                       get(list)
+c2          put(ACL) put(list)
+c3 get(list)                      get(ACL) // also not correct
+c1 may get an old ACL but a new list, newer ACL may delete c2, c2 have no access to see a photo, this is correct in causal consistency. 
+need transaction
+```
