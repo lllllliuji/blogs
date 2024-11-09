@@ -29,5 +29,6 @@ for epoch in range(n_epoch):
 1. 最大化观测数据的似然。
 2. 最小化传达标签的惊异。
 
+Animator可以动态画图
 
 防溢出，logsumexp
