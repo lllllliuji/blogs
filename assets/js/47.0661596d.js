@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[47],{469:function(t,n,s){"use strict";s.r(n);var e=s(2),o=Object(e.a)({},(function(){var t=this._self._c;return t("ContentSlotsDistributor",{attrs:{"slot-key":this.$parent.slotKey}},[t("p",[this._v("我们将深入探索深度学习计算的关键组件，\n即模型构建、参数访问与初始化、设计自定义层和块、将模型读写到磁盘，\n以及利用GPU实现显著的加速。")])])}),[],!1,null,null,null);n.default=o.exports}}]);
