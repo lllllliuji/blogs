@@ -1,3 +1,13 @@
+---
+title: computer archtecture introduction
+date: 2024-11-21
+categories:
+  - arch
+tags:
+  - computer architecture
+  - cs 152
+---
+
 In its broadest definition, computer architecture is the design of
 the abstraction layers that allow us to implement information
 processing applications efficiently using available manufacturing
