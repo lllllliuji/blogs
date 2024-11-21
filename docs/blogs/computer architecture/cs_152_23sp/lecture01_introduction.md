@@ -14,9 +14,7 @@ processing applications efficiently using available manufacturing
 technologies.  
 
 # 体系结构设计
-上层应用和底层架构相互影响。  
-* 上层应用给架构设计提供方向。  
-* 先进的架构可以支持更丰富的应用。
+Technology and Applications shape Computer Architecture
 
 ## Upheaval in Computer Design
 *  Most of last 50 years, Moore’s Law ruled
