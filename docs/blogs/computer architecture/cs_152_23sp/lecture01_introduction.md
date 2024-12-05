@@ -17,12 +17,12 @@ technologies.
 Technology and Applications shape Computer Architecture
 
 ## Upheaval in Computer Design
-*  Most of last 50 years, Moore’s Law ruled
+*  Most of last 50 years, Moore's Law ruled
    * Technology scaling allowed continual performance/energy
 improvements without changing software model
 *  Last decade, technology scaling slowed/stopped
    * Dennard (voltage) scaling over (supply voltage ~fixed)
-   * Moore’s Law (cost/transistor) over?
+   * Moore's Law (cost/transistor) over?
    *  No competitive replacement for CMOS anytime soon
    * Energy efficiency constrains everything
 * No “free lunch” for software developers, must consider:
@@ -31,31 +31,31 @@ improvements without changing software model
 
 # 主要的市场  
 1. Mobile(smartphone/tablet)
-   * – >1 billion sold/year
-   * – Market dominated by ARM-ISA-compatible general-purpose processor in
+   * >1 billion sold/year
+   * Market dominated by ARM-ISA-compatible general-purpose processor in
 system-on-a-chip (SoC)
    * Plus sea of custom accelerators (radio, image, video, graphics, audio,
 motion, location, security, etc.)
 2. Warehouse-Scale computer
-    * 100,000’s cores per warehouse
+    * 100,000's cores per warehouse
     * Market dominated by x86-compatible server chips
     * Dedicated apps, plus cloud hosting of virtual machines
     * Now seeing increasing
 3. Embedding computing
     * Wired/wireless network infrastructure, printers
     * Consumer TV/Music/Games/Automotive/Camera/MP3
-    * – Internet of Things!
+    * Internet of Things!
 
 
 # 新的垂直半导体业务模型  
-Instead of buying chip company’s standard product, chip
+Instead of buying chip company's standard product, chip
 customers build own differentiated designs:
 *  Apple, Samsung, Qualcomm, Huawei for phones
 *  Google, Amazon, Alibaba, Microsoft, for client/cloud
 * Tesla, Cruize for car
 * IoT products, FitBit, Apple for wearables
 * End-system value/profit justifies cost of chip design
-– can be >>$100M engineering cost to develop a new advanced chip!
+* can be >>$100M engineering cost to develop a new advanced chip!
 
 # RISC-V is class ISA
 * RISC-V is a new free, simple, clean, extensible ISA we
@@ -83,12 +83,12 @@ developed at Berkeley based on Scala
 Chisel processor designs
   *  Gives you much more detailed information than other simulators
   * Can map to FPGA or real chip layout
-* You need to learn some minimal Chisel in CS152, but we’ll
+* You need to learn some minimal Chisel in CS152, but we'll
 make Chisel RTL source available so you can see all the
 details of our processors
 * Can do lab projects based on modifying the Chisel RTL
 code if desired
-* This year, we’ll be using Chipyard infrastructure for labs:
+* This year, we'll be using Chipyard infrastructure for labs:
   * https://chipyard.readthedocs.io/en/latest/
 
 # Chisel Design Flow
@@ -101,7 +101,7 @@ two different following steps:
 
 # Five great ideas
 1. Abstraction(Layers of Representation/Interpretation)
-2. Moore’s Law (Designing through trends)
+2. Moore's Law (Designing through trends)
 3. Principle of Locality (Memory Hierarchy)
 4. Parallelism & Amdahl's law (which limits it)
 5. Dependability via Redundancy
