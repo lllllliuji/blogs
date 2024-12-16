@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[52],{476:function(t,n,s){"use strict";s.r(n);var e=s(2),o=Object(e.a)({},(function(){var t=this._self._c;return t("ContentSlotsDistributor",{attrs:{"slot-key":this.$parent.slotKey}},[t("p",[this._v("理论n元组的数量很多（V ^ n），但是实际很少，说明受到了语法的限制（语言中的结构）。\n长尾效应，过度平滑")])])}),[],!1,null,null,null);n.default=o.exports}}]);
